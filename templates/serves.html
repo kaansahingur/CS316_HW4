@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
 <h1>Select Beer</h1> 
-<form method="​GET"​>
+<form method="​POST"​>
 {{form.csrf_token}}
-	<p>{{form.beer_sel.label}}<br> </p> 
-	<!-- <p>​@TODO​</p> -->
+	<p>{{form.beer_sel.label}}<br> {{ form.beer_sel }}</p> 
+	<p>​{{form.submit()}}</p>
 </form>
 {% endblock %}

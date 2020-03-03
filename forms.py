@@ -46,7 +46,7 @@ class ServingsFormFactory:
     @staticmethod
     def form(beer_names):
         class F(FlaskForm):
-            beer_sel = SelectField('Beer Name', choices = beer_names)
+            beer_sel = SelectField('Beer Name', choices = [(beer.name, beer.name) for beer in beer_names])
             submit = SubmitField('Submit')
         return F()
 

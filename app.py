@@ -47,14 +47,14 @@ def serves():
     beer_names = db.session.query(models.Beer.name).all()
     form = forms.ServingsFormFactory.form(beer_names)
     if form.validate_on_submit():
-        return redirect('/servings' + form.beer_sel.data)
+        return redirect('/servings/' + form.beer_sel.data)
     return render_template('serves.html', form=form)
 
 @app.route('/servings/<beer_name>')
 def servings_for(beer_name):
     results = db.session.query(models.Serves) \
-        .filter(models.Serves.beer == beer.name) \
-        .join(modesl.Bar, models.Bar.name == models.Serves.bar).all()
+        .filter(models.Serves.beer == beer_name) \
+        .join(models.Bar, models.Bar.name == models.Serves.bar).all()
     return render_template('servings_for.html', beer_name=beer_name, data = results)
 
 if __name__ == '__main__':
