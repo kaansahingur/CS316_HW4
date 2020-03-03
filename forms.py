@@ -40,3 +40,14 @@ class DrinkerEditFormFactory:
             default = bars_frequented[bar.name] if bar.name in bars_frequented else 0
             setattr(F, field_name, IntegerField(default=default))
         return F()
+
+from wtforms import SelectField, SubmitField
+class ServingsFormFactory:
+    @staticmethod
+    def form(beer_names):
+        class F(FlaskForm):
+            beer_sel = SelectField('Beer Name', choices = beer_names)
+            submit = SubmitField('Submit')
+        return F()
+
+

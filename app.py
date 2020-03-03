@@ -42,5 +42,20 @@ def edit_drinker(name):
 def pluralize(number, singular='', plural='s'):
     return singular if number in (0, 1) else plural
 
+@app.route('/serves', methods=['GET', 'POST'])
+def serves():
+    beer_names = db.session.query(models.Beer.name).all()
+    form = forms.ServingsFormFactory.form(beer_names)
+    if form.validate_on_submit():
+        return redirect('/servings' + form.beer_sel.data)
+    return render_template('serves.html', form=form)
+
+@app.route('/servings/<beer_name>')
+def servings_for(beer_name):
+    results = db.session.query(models.Serves) \
+        .filter(models.Serves.beer == beer.name) \
+        .join(modesl.Bar, models.Bar.name == models.Serves.bar).all()
+    return render_template('servings_for.html', beer_name=beer_name, data = results)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
